@@ -67,15 +67,15 @@ class Agent:
     #in order to not update the gradients when it is updating the weights as that would affect the back propagation.
     def play(self, net, epsilon = 0.0, device = "cpu"):   #play and fills the buffer
             
-            done_reward = None                                  #??
+            done_reward = None                                  
             if np.random.random() < epsilon:
                 action = self.env.action_space.sample()
             else:
-                state_np = np.array([self.state], copy=False)    #??
-                state_vtf = torch.tensor(state_np).to(device)    #??
+                state_np = np.array([self.state], copy=False)    
+                state_vtf = torch.tensor(state_np).to(device)    
                 q_act_val = net(state_vtf)
-                _, act = torch.max(q_act_val, dim=1)             #??  #why do not use squeez
-                action = int(act.item())                         #??
+                _, act = torch.max(q_act_val, dim=1)             
+                action = int(act.item())                        
 
             next_s, reward, is_done, _ = self.env.step(action)
             self.total_reward += reward
